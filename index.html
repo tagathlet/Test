@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>SUDOKU</title>
+		<link rel="stylesheet" href="CssSudoku.css">
+	</head>
+	<body>
+		<h1>Попробуй мой судоку!)))</h1>
+		<!-- Комментарий -->
+		<p></p>
+		<input type="text" size="3">
+		<script>
+			var table = document.createElement('table');
+			table.id = "table";
+			table.className = "StyleTable"
+			table.appendChild(document.createElement('tbody'));
+			j = 0;
+			for (i = 1; i < 10; i++) {
+				Tr = table.appendChild(document.createElement('tr'));
+				for (j = 1; j < 10; j++){
+					var th = document.createElement('th');
+					var input = document.createElement('input');
+					input.id = "_" + i + "_" + j;
+					Tr.appendChild(th);
+					th.appendChild(input);
+					
+				}
+			}
+	
+			document.body.append(table);
+			
+			function shuffle(array) {
+				array.sort(() => Math.random() - 0.5);
+			}
+			
+			var mapArr = [];
+			
+			for (i = 0; i < 9; i++){
+				mapArr[i] = [];
+				for (j = 0; j < 9; j++){
+					mapArr[i][j] = 0;
+				}
+			}
+			
+			var numArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+			
+			function checkMap(mapArr, i, j, num){
+				for (var n = 0; n < 9; n++){
+					if (mapArr[n][j] == num ){
+						return 0;
+					}
+				}
+				for (var m = 0; m < 9; m++){
+					if (mapArr[i][m] == num ){
+						return 0;
+					}
+				}
+				return 1;
+			}
+			
+			function genMap(mapArr, numArr){
+				for (i = 0; i < 9; i++){
+					for (j = 0; j < 9; j++){
+						if (checkMap(mapArr, i, j, numArr[j])){
+							mapArr[i][j] = numArr[j];
+						}
+						else {
+							numArr=numArr.splice(-1).concat(numArr);
+							j = j-1;
+						}
+					}
+					//numArr=numArr.splice(1).concat(numArr);
+					shuffle(numArr);
+				}
+				return mapArr;
+			}
+			
+			
+			console.log (genMap(mapArr, numArr));
+
+			/*var mapArr = [[3, 7, 8, 4, 1, 0, 2, 6, 9],
+						  [5, 6, 1, 0, 2, 8, 0, 7, 3],
+						  [4, 0, 9, 7, 6, 3, 5, 8, 1],
+						  [7, 4, 0, 3, 9, 6, 8, 1, 2],
+						  [8, 3, 2, 1, 5, 7, 6, 9, 4],
+						  [1, 0, 6, 2, 8, 4, 3, 5, 7],
+						  [9, 0, 4, 0, 7, 2, 0, 0, 5],
+						  [2, 5, 7, 8, 3, 1, 9, 4, 6],
+						  [6, 1, 3, 0, 4, 9, 7, 0, 8]];
+
+			for (i = 0; i < 9; i++){
+				for (j = 0; j < 9; j++){
+					if (mapArr[i][j] != 0){
+					table.rows[i].cells[j].innerHTML = mapArr[i][j];
+					}
+				}
+			}*/
+			
+			/*table.rows[0].cells[5].innerHTML = "5";
+			table.rows[1].cells[3].innerHTML = "2";
+			table.rows[1].cells[6].innerHTML = "4";
+			table.rows[2].cells[1].innerHTML = "2";
+			table.rows[3].cells[2].innerHTML = "5";
+			table.rows[5].cells[1].innerHTML = "9";
+			table.rows[6].cells[1].innerHTML = "8";
+			table.rows[6].cells[4].innerHTML = "2";
+			table.rows[6].cells[7].innerHTML = "1";
+			table.rows[6].cells[6].innerHTML = "3";
+			table.rows[8].cells[3].innerHTML = "5";
+			table.rows[8].cells[7].innerHTML = "2";*/
+			
+			//<button onclick = "multi()" class="btn btn-primary" >Проверить</button>
+			
+			//console.log(table.rows[0].cells[5].innerHTML)
+		</script>
+		<button onClick='location.href="win.html"'>Проверить</button>
+		
+	</body>
+</html>
